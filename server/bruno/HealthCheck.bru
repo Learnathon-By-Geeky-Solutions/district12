@@ -1,0 +1,11 @@
+meta {
+  name: HealthCheck
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/v1/healthy
+  body: none
+  auth: none
+}
