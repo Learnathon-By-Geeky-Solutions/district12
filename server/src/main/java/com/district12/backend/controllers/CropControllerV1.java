@@ -52,4 +52,12 @@ public class CropControllerV1 {
         return ResponseEntity.ok(cropResponses);
     }
 
+    @PostMapping("/user/deselect")
+    public ResponseEntity<List<CropResponse>> deSelectCropsForUser(
+            @Valid @RequestBody CropSelectRequest cropDeselectRequest
+    ) {
+        List<CropResponse> deselectedCropsResponse = cropService.deselectCropsForUser(cropDeselectRequest.getCropIds());
+        return ResponseEntity.ok(deselectedCropsResponse);
+    }
+
 }
