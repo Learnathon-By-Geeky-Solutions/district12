@@ -51,11 +51,7 @@ public class CropServiceImpl implements CropService {
         List<CropResponse> cropResponses = new ArrayList<>();
 
         for (Crop crop : crops) {
-            UserCrop userCrop = new UserCrop();
-            userCrop.setUser(user);
-            userCrop.setCrop(crop);
-            userCrop.setSelectedAt(ZonedDateTime.now());
-
+            UserCrop userCrop = new UserCrop(user, crop, ZonedDateTime.now());
             userCropRepository.save(userCrop);
             cropResponses.add(new CropResponse(crop.getId(), crop.getName(), crop.getDescription()));
         }

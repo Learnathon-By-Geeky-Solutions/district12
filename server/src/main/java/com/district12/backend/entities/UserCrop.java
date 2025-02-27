@@ -1,10 +1,7 @@
 package com.district12.backend.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
@@ -32,5 +29,11 @@ public class UserCrop {
 
     @Column(nullable = false)
     private ZonedDateTime selectedAt;
+
+    public UserCrop(User user, Crop crop, ZonedDateTime selectedAt) {
+        this.user = user;
+        this.crop = crop;
+        this.selectedAt = selectedAt;
+    }
 
 }
