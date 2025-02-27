@@ -2,6 +2,7 @@ package com.district12.backend.controllers;
 
 import com.district12.backend.dtos.response.CropResponse;
 import com.district12.backend.services.abstractions.CropService;
+import com.district12.backend.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class CropControllerV1 {
     ) {
         CropResponse cropResponse = cropService.getCropDetailsById(cropId);
         return ResponseEntity.ok(cropResponse);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<CropResponse>> getUserCrops() {
+        List<CropResponse> cropResponses = cropService.getUserCrops(SecurityUtils.getOwnerID());
+        return ResponseEntity.ok(cropResponses);
     }
 
 }
