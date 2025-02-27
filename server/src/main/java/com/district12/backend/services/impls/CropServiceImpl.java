@@ -19,4 +19,9 @@ public class CropServiceImpl implements CropService {
         return cropRepository.findAllCrops();
     }
 
+    @Override
+    public CropResponse getCropDetailsById(Long id) {
+        return cropRepository.getCropDetailsById(id);
+    }
+
 }

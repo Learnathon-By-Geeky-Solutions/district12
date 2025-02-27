@@ -23,4 +23,12 @@ public class CropControllerV1 {
         return ResponseEntity.ok(allCrops);
     }
 
+    @GetMapping("/{cropId}")
+    public ResponseEntity<CropResponse> getCropDetails(
+            @PathVariable Long cropId
+    ) {
+        CropResponse cropResponse = cropService.getCropDetailsById(cropId);
+        return ResponseEntity.ok(cropResponse);
+    }
+
 }

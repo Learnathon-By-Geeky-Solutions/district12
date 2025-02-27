@@ -7,5 +7,6 @@ import java.util.List;
 public interface CropService {
 
     List<CropResponse> getAllCrops();
+    CropResponse getCropDetailsById(Long id);
 
 }
