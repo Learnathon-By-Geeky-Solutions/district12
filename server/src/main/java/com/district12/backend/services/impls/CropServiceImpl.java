@@ -10,7 +10,4 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CropServiceImpl implements CropService {
 
-    private final CropRepository cropRepository;
-    private final UserCropRepository userCropRepository;
-
 }
