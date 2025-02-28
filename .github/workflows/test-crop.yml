@@ -3,7 +3,6 @@ name: Java CI/CD - Run Crop Management Tests
 on:
   push:
     branches:
-      - main
       - test/server/crop-management
   pull_request:
     branches:
