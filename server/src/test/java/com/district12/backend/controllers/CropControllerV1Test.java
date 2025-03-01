@@ -92,4 +92,18 @@ class CropControllerV1Test {
                 .andExpect(jsonPath("$[1].name").value("Rice"));
     }
 
+    @Test
+    void testGetUserCrops() throws Exception {
+        List<CropResponse> mockCrops = List.of(
+                new CropResponse(1L, "Tomato", "Grows in warm weather")
+        );
+
+        when(cropService.getUserCrops(anyLong())).thenReturn(mockCrops);
+
+        mockMvc.perform(get("/v1/api/crops/user"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].name").value("Tomato"));
+    }
+
 }
