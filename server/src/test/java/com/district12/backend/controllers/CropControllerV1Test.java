@@ -106,4 +106,22 @@ class CropControllerV1Test {
                 .andExpect(jsonPath("$[0].name").value("Tomato"));
     }
 
+    @Test
+    void testDeSelectCropsForUser() throws Exception {
+        CropSelectRequest request = new CropSelectRequest(List.of(1L));
+
+        List<CropResponse> mockCrops = List.of(
+                new CropResponse(2L, "Rice", "Popular in Asia")
+        );
+
+        when(cropService.deselectCropsForUser(any())).thenReturn(mockCrops);
+
+        mockMvc.perform(post("/v1/api/crops/user/deselect")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].name").value("Rice"));
+    }
+
 }
