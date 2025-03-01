@@ -48,4 +48,16 @@ class CropControllerV1Test {
                 .andExpect(jsonPath("$[0].name").value("Wheat"))
                 .andExpect(jsonPath("$[1].name").value("Rice"));
     }
+
+    @Test
+    void testGetCropDetails() throws Exception {
+        CropResponse mockCrop = new CropResponse(1L, "Corn", "Yellow sweet corn");
+
+        when(cropService.getCropDetailsById(1L)).thenReturn(mockCrop);
+
+        mockMvc.perform(get("/v1/api/crops/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Corn"))
+                .andExpect(jsonPath("$.description").value("Yellow sweet corn"));
+    }
 }
