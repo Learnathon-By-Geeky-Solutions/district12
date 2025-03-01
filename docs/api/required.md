@@ -122,7 +122,7 @@ Admin deletes any officer account
 
 ### Fetch Real-time Weather Information
 **GET** `/api/weather/now`  
-Fetch real-time temperature, humidity and similars.
+Fetch real-time temperature, humidity and similar metrics.
 
 ### Fetch Weather Forecast Information
 **GET** `/api/weather/forecast`  

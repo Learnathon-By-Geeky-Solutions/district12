@@ -39,12 +39,12 @@
 | updated_at  | TIMESTAMP    | Last profile update timestamp |
 
 ### Officers' Table
-| Field        | Type         | Description                    |
-|-------------|-------------|--------------------------------|
+| Field        | Type         | Description                       |
+|-------------|-------------|-----------------------------------|
 | id          | UUID (PK)    | Unique identifier for the officer |
-| user_id     | UUID (FK)    | References `users.id`         |
-| additional_attr       | VARCHAR(255) | Additoinal attribute for user |
-| password    | TEXT         | Hashed password               |
+| user_id     | UUID (FK)    | References `users.id`             |
+| additional_attr       | VARCHAR(255) | Additional attribute for user     |
+| password    | TEXT         | Hashed password                   |
 
 ### Crops Table
 | Field        | Type         | Description           |
@@ -120,5 +120,5 @@
 ## 3. Physical Design
 
 ### DBMS Selection
-- **PostgreSQL**, hosted on **Neon**.
+- **PostGreSQL**, hosted on **Neon**.
 - **Authentication & Authorization**: Supabase for seamless management.
