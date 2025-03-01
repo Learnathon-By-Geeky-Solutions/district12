@@ -4,8 +4,6 @@ import com.district12.backend.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "users")
 @Getter
@@ -32,10 +30,6 @@ public class User {
     private Role role;
 
     private String phoneNumber;
-
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    @ToString.Exclude
-//    private List<Address> addresses;
 
     public User(Long id){
         this.id = id;

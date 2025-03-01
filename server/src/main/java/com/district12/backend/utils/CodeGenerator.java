@@ -1,7 +1,6 @@
 package com.district12.backend.utils;
 
 import java.security.SecureRandom;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class CodeGenerator {
 

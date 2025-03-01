@@ -3,12 +3,9 @@ package com.district12.backend.services;
 import com.district12.backend.entities.User;
 import com.district12.backend.repositories.UserRepository;
 import com.district12.backend.repositories.UserVerificationRepository;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
