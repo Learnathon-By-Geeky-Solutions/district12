@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "alerts")
