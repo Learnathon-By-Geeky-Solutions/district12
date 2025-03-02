@@ -23,8 +23,8 @@ public class AlertControllerV1 {
     private final AlertService alertService;
 
     @GetMapping("/{alertId}")
-    public ResponseEntity<Alert> getAlertById(@PathVariable("alertId") Long alertId) {
-        Alert alertById = alertService.getAlertById(alertId);
+    public ResponseEntity<AlertResponse> getAlertById(@PathVariable("alertId") Long alertId) {
+        AlertResponse alertById = alertService.getAlertById(alertId);
         return ResponseEntity.ok(alertById);
     }
 
@@ -46,7 +46,5 @@ public class AlertControllerV1 {
         List<AlertResponse> alertsByUserId = alertService.getAllAlertsByUserId(userId);
         return ResponseEntity.ok(alertsByUserId);
     }
-
-
 
 }
