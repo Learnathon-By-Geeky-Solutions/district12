@@ -2,17 +2,9 @@ package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.entities.UserCrop;
 import com.district12.backend.entities.alert.Alert;
-import com.district12.backend.entities.alert.CropAlert;
-import com.district12.backend.entities.alert.TaskAlert;
-import com.district12.backend.entities.alert.WeatherAlert;
 import com.district12.backend.enums.AlertType;
-import com.district12.backend.repositories.UserCropRepository;
 import com.district12.backend.repositories.alert.AlertRepository;
-import com.district12.backend.repositories.alert.CropAlertRepository;
-import com.district12.backend.repositories.alert.TaskAlertRepository;
-import com.district12.backend.repositories.alert.WeatherAlertRepository;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;

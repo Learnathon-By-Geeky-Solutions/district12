@@ -40,5 +40,4 @@ public interface AlertRepository extends JpaRepository<Alert, Long>, JpaSpecific
             "AND user_id = :userId", nativeQuery = true)
     int markAlertsAsRead(@Param("userId") Long userId, @Param("alertIds") List<Long> alertIds);
 
-
 }

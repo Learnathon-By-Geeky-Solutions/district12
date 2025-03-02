@@ -2,12 +2,17 @@ package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.UserCrop;
+import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.entities.alert.CropAlert;
+import com.district12.backend.enums.AlertType;
+import com.district12.backend.enums.CropAlertType;
 import com.district12.backend.repositories.UserCropRepository;
 import com.district12.backend.repositories.alert.CropAlertRepository;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +33,18 @@ public class CropAlertServiceImpl implements CropAlertService {
         detailedAlertResponse.addDetail("cropAlertType", cropAlert.getCropAlertType());
 
         return detailedAlertResponse;
+    }
+
+    private List<DetailedAlertResponse> addDetailsToAlerts(List<DetailedAlertResponse> detailedAlertResponses) {
+        return detailedAlertResponses.stream()
+                .map(this::addDetailsToAlert)
+                .toList();
+    }
+
+    @Override
+    public List<DetailedAlertResponse> getAllAlertsByCropAlertType(String cropAlertType){
+        CropAlertType type = CropAlertType.valueOf(cropAlertType.toUpperCase());
+        return addDetailsToAlerts(cropAlertRepository.findByCropAlertType(type));
     }
 
 }

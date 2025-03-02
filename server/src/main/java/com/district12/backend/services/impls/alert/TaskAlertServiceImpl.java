@@ -1,8 +1,6 @@
 package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.entities.UserCrop;
-import com.district12.backend.entities.alert.CropAlert;
 import com.district12.backend.entities.alert.TaskAlert;
 import com.district12.backend.repositories.alert.TaskAlertRepository;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
