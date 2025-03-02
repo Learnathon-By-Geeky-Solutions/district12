@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/alert")
+@RequestMapping("/v1/weather")
 @RequiredArgsConstructor
 @Slf4j
-public class AlertControllerV1 {
+public class WeatherAlertControllerV1 {
 }
