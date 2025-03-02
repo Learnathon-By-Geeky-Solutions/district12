@@ -14,10 +14,16 @@ import java.util.List;
 @Repository
 public interface AlertRepository extends JpaRepository<Alert, Long>, JpaSpecificationExecutor<Alert> {
 
-    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.alertType = :alertType")
+    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) " +
+            "FROM Alert a WHERE a.alertType = :alertType")
     List<DetailedAlertResponse> findAllByAlertType(@Param("alertType") AlertType alertType);
 
-    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.user.id = :userId")
+    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) " +
+            "FROM Alert a WHERE a.user.id = :userId")
     List<DetailedAlertResponse> findAllByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) " +
+            "FROM Alert a WHERE a.user.id = :userId AND a.readAt = NULL")
+    List<DetailedAlertResponse> findUnreadAlertsByUserId(@Param("userId") Long userId);
 
 }

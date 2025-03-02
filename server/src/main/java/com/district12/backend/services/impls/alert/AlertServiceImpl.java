@@ -88,4 +88,9 @@ public class AlertServiceImpl implements AlertService {
         }
     }
 
+    @Override
+    public List<DetailedAlertResponse> getUnreadAlertsByUserId(Long userId) {
+        return alertRepository.findUnreadAlertsByUserId(userId);
+    }
+
 }

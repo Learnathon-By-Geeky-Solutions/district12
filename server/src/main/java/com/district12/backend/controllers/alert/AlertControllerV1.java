@@ -2,8 +2,8 @@ package com.district12.backend.controllers.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.services.abstractions.alert.AlertService;
+import com.district12.backend.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +52,12 @@ public class AlertControllerV1 {
     public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByUserId(@PathVariable Long userId) {
         List<DetailedAlertResponse> alertsByUserId = alertService.getAllAlertsByUserId(userId);
         return ResponseEntity.ok(alertsByUserId);
+    }
+
+    @GetMapping("/user/un-read")
+    public ResponseEntity<List<DetailedAlertResponse>> getUnreadAlertsByUserId() {
+        List<DetailedAlertResponse> unreadAlertsByUserId = alertService.getUnreadAlertsByUserId(SecurityUtils.getOwnerID());
+        return ResponseEntity.ok(unreadAlertsByUserId);
     }
 
 }

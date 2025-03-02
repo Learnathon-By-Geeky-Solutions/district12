@@ -12,5 +12,6 @@ public interface AlertService {
     DetailedAlertResponse getAlertDetailsById(Long alertId);
     List<DetailedAlertResponse> getAllAlertsByType(String alertType);
     List<DetailedAlertResponse> getAllAlertsByUserId(Long userId);
+    List<DetailedAlertResponse> getUnreadAlertsByUserId(Long userId);
 
 }
