@@ -93,4 +93,14 @@ public class AlertServiceImpl implements AlertService {
         return alertRepository.findUnreadAlertsByUserId(userId);
     }
 
+    @Override
+    public int markAlertAsReadByUser(Long userId, Long alertId) {
+        return alertRepository.markAlertAsRead(userId, alertId);
+    }
+
+    @Override
+    public int markAlertsAsReadByUser(Long userId, List<Long> alertIds) {
+        return alertRepository.markAlertsAsRead(userId, alertIds);
+    }
+
 }

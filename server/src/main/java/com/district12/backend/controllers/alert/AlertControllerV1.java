@@ -1,17 +1,16 @@
 package com.district12.backend.controllers.alert;
 
+import com.district12.backend.dtos.request.alert.AlertsReadRequest;
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.utils.SecurityUtils;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,8 +55,20 @@ public class AlertControllerV1 {
 
     @GetMapping("/user/un-read")
     public ResponseEntity<List<DetailedAlertResponse>> getUnreadAlertsByUserId() {
-        List<DetailedAlertResponse> unreadAlertsByUserId = alertService.getUnreadAlertsByUserId(SecurityUtils.getOwnerID());
+        List<DetailedAlertResponse> unreadAlertsByUserId =
+                alertService.getUnreadAlertsByUserId(SecurityUtils.getOwnerID());
         return ResponseEntity.ok(unreadAlertsByUserId);
+    }
+
+    @PutMapping("/user/mark-read/{alertId}")
+    public int markAlertReadByUser(@PathVariable("alertId") Long alertId) {
+        return alertService.markAlertAsReadByUser(SecurityUtils.getOwnerID(), alertId);
+    }
+
+    @PostMapping("/user/mark-read")
+    public int markAlertsReadByUser(@Valid @RequestBody AlertsReadRequest alertsReadRequest) {
+        return alertService.markAlertsAsReadByUser(SecurityUtils.getOwnerID(),
+                alertsReadRequest.getAlertIds());
     }
 
 }
