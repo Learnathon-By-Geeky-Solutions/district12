@@ -31,4 +31,13 @@ public class AlertServiceImpl implements AlertService {
         }
     }
 
+    @Override
+    public List<AlertResponse> getAllAlertsByUserId(Long userId) {
+        try {
+            return alertRepository.findAllByUserId(userId);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("No alerts found for userId: " + userId);
+        }
+    }
+
 }

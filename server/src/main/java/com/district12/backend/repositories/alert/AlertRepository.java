@@ -17,4 +17,7 @@ public interface AlertRepository extends JpaRepository<Alert, Long>, JpaSpecific
     @Query("SELECT new com.district12.backend.dtos.response.alert.AlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.alertType = :alertType")
     List<AlertResponse> findAllByAlertType(@Param("alertType") AlertType alertType);
 
+    @Query("SELECT new com.district12.backend.dtos.response.alert.AlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.user.id = :userId")
+    List<AlertResponse> findAllByUserId(@Param("userId") Long userId);
+
 }

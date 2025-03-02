@@ -9,5 +9,6 @@ public interface AlertService {
 
     Alert getAlertById(Long alertId);
     List<AlertResponse> getAllAlertsByType(String alertType);
+    List<AlertResponse> getAllAlertsByUserId(Long userId);
 
 }

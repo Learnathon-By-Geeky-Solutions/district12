@@ -28,6 +28,7 @@ public class AlertControllerV1 {
         return ResponseEntity.ok(alertById);
     }
 
+    // Admin/Local Officer fetches all alerts of a certain type
     @GetMapping("/type/{alertType}")
     @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
             "T(com.district12.backend.enums.Role).OFFICER.value)")
@@ -36,5 +37,16 @@ public class AlertControllerV1 {
         List<AlertResponse> alertsByType = alertService.getAllAlertsByType(alertType);
         return ResponseEntity.ok(alertsByType);
     }
+
+    // Admin/Local Officer fetches all alerts of a certain user ID
+    @GetMapping("/type/{userId}")
+    @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
+            "T(com.district12.backend.enums.Role).OFFICER.value)")
+    public ResponseEntity<List<AlertResponse>> getAllAlertsByUserId(@PathVariable Long userId) {
+        List<AlertResponse> alertsByUserId = alertService.getAllAlertsByUserId(userId);
+        return ResponseEntity.ok(alertsByUserId);
+    }
+
+
 
 }
