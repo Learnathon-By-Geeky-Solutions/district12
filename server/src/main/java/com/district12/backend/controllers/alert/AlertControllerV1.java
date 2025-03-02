@@ -1,6 +1,7 @@
 package com.district12.backend.controllers.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
+import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,19 @@ public class AlertControllerV1 {
         return ResponseEntity.ok(alertById);
     }
 
+    @GetMapping("/details/{alertId}")
+    public ResponseEntity<DetailedAlertResponse> getAlertDetailsById(@PathVariable("alertId") Long alertId) {
+        DetailedAlertResponse alertById = alertService.getAlertDetailsById(alertId);
+        return ResponseEntity.ok(alertById);
+    }
+
     // Admin/Local Officer fetches all alerts of a certain type
     @GetMapping("/type/{alertType}")
     @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
             "T(com.district12.backend.enums.Role).OFFICER.value)")
-    public ResponseEntity<List<AlertResponse>> getAllAlertsByType(
+    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByType(
             @PathVariable("alertType") String alertType) {
-        List<AlertResponse> alertsByType = alertService.getAllAlertsByType(alertType);
+        List<DetailedAlertResponse> alertsByType = alertService.getAllAlertsByType(alertType);
         return ResponseEntity.ok(alertsByType);
     }
 
@@ -42,8 +49,8 @@ public class AlertControllerV1 {
     @GetMapping("/type/{userId}")
     @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
             "T(com.district12.backend.enums.Role).OFFICER.value)")
-    public ResponseEntity<List<AlertResponse>> getAllAlertsByUserId(@PathVariable Long userId) {
-        List<AlertResponse> alertsByUserId = alertService.getAllAlertsByUserId(userId);
+    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByUserId(@PathVariable Long userId) {
+        List<DetailedAlertResponse> alertsByUserId = alertService.getAllAlertsByUserId(userId);
         return ResponseEntity.ok(alertsByUserId);
     }
 

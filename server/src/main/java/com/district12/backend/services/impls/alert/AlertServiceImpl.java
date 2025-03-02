@@ -43,6 +43,13 @@ public class AlertServiceImpl implements AlertService {
         return detailedAlertResponse;
     }
 
+    private List<DetailedAlertResponse> addDetailsToAlerts(List<DetailedAlertResponse> detailedAlertResponses) {
+        return detailedAlertResponses.stream()
+                .map(this::addDetailsToAlert)
+                .toList();
+    }
+
+
     @Override
     public AlertResponse getAlertById(Long alertId) {
         Alert alertById = alertRepository.findById(alertId).orElse(null);
@@ -63,19 +70,19 @@ public class AlertServiceImpl implements AlertService {
     }
 
     @Override
-    public List<AlertResponse> getAllAlertsByType(String alertType) {
+    public List<DetailedAlertResponse> getAllAlertsByType(String alertType) {
         try {
             AlertType type = AlertType.valueOf(alertType.toUpperCase());
-            return alertRepository.findAllByAlertType(type);
+            return addDetailsToAlerts(alertRepository.findAllByAlertType(type));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid alert type: " + alertType);
         }
     }
 
     @Override
-    public List<AlertResponse> getAllAlertsByUserId(Long userId) {
+    public List<DetailedAlertResponse> getAllAlertsByUserId(Long userId) {
         try {
-            return alertRepository.findAllByUserId(userId);
+            return addDetailsToAlerts(alertRepository.findAllByUserId(userId));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("No alerts found for userId: " + userId);
         }

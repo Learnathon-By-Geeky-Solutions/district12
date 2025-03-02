@@ -1,6 +1,6 @@
 package com.district12.backend.repositories.alert;
 
-import com.district12.backend.dtos.response.alert.AlertResponse;
+import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.enums.AlertType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,10 +14,10 @@ import java.util.List;
 @Repository
 public interface AlertRepository extends JpaRepository<Alert, Long>, JpaSpecificationExecutor<Alert> {
 
-    @Query("SELECT new com.district12.backend.dtos.response.alert.AlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.alertType = :alertType")
-    List<AlertResponse> findAllByAlertType(@Param("alertType") AlertType alertType);
+    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.alertType = :alertType")
+    List<DetailedAlertResponse> findAllByAlertType(@Param("alertType") AlertType alertType);
 
-    @Query("SELECT new com.district12.backend.dtos.response.alert.AlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.user.id = :userId")
-    List<AlertResponse> findAllByUserId(@Param("userId") Long userId);
+    @Query("SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt) FROM Alert a WHERE a.user.id = :userId")
+    List<DetailedAlertResponse> findAllByUserId(@Param("userId") Long userId);
 
 }

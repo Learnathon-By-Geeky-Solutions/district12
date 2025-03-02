@@ -10,7 +10,7 @@ public interface AlertService {
 
     AlertResponse getAlertById(Long alertId);
     DetailedAlertResponse getAlertDetailsById(Long alertId);
-    List<AlertResponse> getAllAlertsByType(String alertType);
-    List<AlertResponse> getAllAlertsByUserId(Long userId);
+    List<DetailedAlertResponse> getAllAlertsByType(String alertType);
+    List<DetailedAlertResponse> getAllAlertsByUserId(Long userId);
 
 }
