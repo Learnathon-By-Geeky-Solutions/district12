@@ -1,6 +1,6 @@
-package com.district12.backend.services.impls;
+package com.district12.backend.services.impls.alert;
 
-import com.district12.backend.services.abstractions.AlertService;
+import com.district12.backend.services.abstractions.alert.AlertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
