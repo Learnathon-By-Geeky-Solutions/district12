@@ -1,5 +1,6 @@
 package com.district12.backend.services.impls.alert;
 
+import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.enums.AlertType;
 import com.district12.backend.repositories.alert.AlertRepository;
@@ -21,7 +22,7 @@ public class AlertServiceImpl implements AlertService {
     }
 
     @Override
-    public List<Alert> getAllAlertsByType(String alertType) {
+    public List<AlertResponse> getAllAlertsByType(String alertType) {
         try {
             AlertType type = AlertType.valueOf(alertType.toUpperCase());
             return alertRepository.findAllByAlertType(type);

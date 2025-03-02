@@ -1,5 +1,6 @@
 package com.district12.backend.controllers.alert;
 
+import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +31,10 @@ public class AlertControllerV1 {
     @GetMapping("/type/{alertType}")
     @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
             "T(com.district12.backend.enums.Role).OFFICER.value)")
-    public ResponseEntity<List<Alert>> getAllAlertsByType(
+    public ResponseEntity<List<AlertResponse>> getAllAlertsByType(
             @PathVariable("alertType") String alertType) {
-        List<Alert> alertsByType = alertService.getAllAlertsByType(alertType);
+        List<AlertResponse> alertsByType = alertService.getAllAlertsByType(alertType);
         return ResponseEntity.ok(alertsByType);
     }
-
 
 }
