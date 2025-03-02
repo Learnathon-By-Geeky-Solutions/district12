@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/api/crops")
+@RequestMapping("/v1/crops")
 @RequiredArgsConstructor
 @Slf4j
 public class CropControllerV1 {
