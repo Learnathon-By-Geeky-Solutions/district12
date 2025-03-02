@@ -31,4 +31,14 @@ public class CropAlertControllerV1 {
         return ResponseEntity.ok(alertsByCropAlertType);
     }
 
+    // Admin/Local Officer fetches all alerts of a certain crop
+    @GetMapping("/id/{cropId}")
+    @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
+            "T(com.district12.backend.enums.Role).OFFICER.value)")
+    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByCropId(
+            @PathVariable("cropId") Long cropId) {
+        List<DetailedAlertResponse> alertsByCropId = cropAlertService.getAllAlertsByCropId(cropId);
+        return ResponseEntity.ok(alertsByCropId);
+    }
+
 }

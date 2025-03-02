@@ -8,4 +8,6 @@ public interface CropAlertService {
 
     DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse);
     List<DetailedAlertResponse> getAllAlertsByCropAlertType(String cropAlertType);
+    List<DetailedAlertResponse> getAllAlertsByCropId(Long cropId);
+
 }

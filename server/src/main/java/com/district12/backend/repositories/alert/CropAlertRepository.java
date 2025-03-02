@@ -21,4 +21,14 @@ public interface CropAlertRepository extends JpaRepository<CropAlert, Long> {
     """)
     List<DetailedAlertResponse> findByCropAlertType(@Param("cropAlertType") CropAlertType cropAlertType);
 
+    @Query(value = """
+        SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(
+            a.id, a.user.id, a.alertType, a.alertPriority, a.createdAt, a.readAt
+        )
+        FROM CropAlert ca
+        JOIN Alert a ON ca.alert.id = a.id
+        WHERE ca.userCrop.user.id = :cropId
+    """)
+    List<DetailedAlertResponse> findByCropId(@Param("cropId") Long cropId);
+
 }
