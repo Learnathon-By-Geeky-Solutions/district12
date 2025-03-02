@@ -44,3 +44,114 @@ VALUES
     (3, 13, NOW()), -- Charlie - Oranges
     (4, 14, NOW()), -- David - Grapes
     (5, 15, NOW()); -- Emma - Strawberries
+
+-- Populate alerts table with sub_tables
+
+-- Insert first crop alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (1, 'CROP', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO crop_alerts (alert_id, user_crop_id, crop_alert_type)
+VALUES (@last_alert_id, 1, 'DISEASE');
+
+-- Insert second crop alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (2, 'CROP', 'MEDIUM', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO crop_alerts (alert_id, user_crop_id, crop_alert_type)
+VALUES (@last_alert_id, 2, 'HARVEST_READY');
+
+-- Insert third crop alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (3, 'CROP', 'LOW', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO crop_alerts (alert_id, user_crop_id, crop_alert_type)
+VALUES (@last_alert_id, 3, 'WATERING_NEEDED');
+
+-- Insert fourth crop alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (4, 'CROP', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO crop_alerts (alert_id, user_crop_id, crop_alert_type)
+VALUES (@last_alert_id, 4, 'FERTILIZER_NEEDED');
+
+-- Insert fifth crop alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (5, 'CROP', 'MEDIUM', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO crop_alerts (alert_id, user_crop_id, crop_alert_type)
+VALUES (@last_alert_id, 5, 'PEST_INFESTATION');
+
+
+
+-- Insert first task alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (1, 'TASK', 'LOW', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO task_alerts (alert_id, task_type, due_time)
+VALUES (@last_alert_id, 'PLANTING', NOW() + INTERVAL 1 DAY);
+
+-- Insert second task alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (2, 'TASK', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO task_alerts (alert_id, task_type, due_time)
+VALUES (@last_alert_id, 'IRRIGATION', NOW() + INTERVAL 2 DAY);
+
+-- Insert third task alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (3, 'TASK', 'MEDIUM', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO task_alerts (alert_id, task_type, due_time)
+VALUES (@last_alert_id, 'FERTILIZATION', NOW() + INTERVAL 3 DAY);
+
+-- Insert fourth task alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (4, 'TASK', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO task_alerts (alert_id, task_type, due_time)
+VALUES (@last_alert_id, 'HARVESTING', NOW() + INTERVAL 4 DAY);
+
+-- Insert fifth task alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (5, 'TASK', 'LOW', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO task_alerts (alert_id, task_type, due_time)
+VALUES (@last_alert_id, 'SOIL_TESTING', NOW() + INTERVAL 5 DAY);
+
+
+
+-- Insert first weather alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (1, 'WEATHER', 'MEDIUM', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO weather_alerts (alert_id, weather_type, forecasted_at)
+VALUES (@last_alert_id, 'STORM', NOW() + INTERVAL 1 DAY);
+
+-- Insert second weather alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (2, 'WEATHER', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO weather_alerts (alert_id, weather_type, forecasted_at)
+VALUES (@last_alert_id, 'HEAT_WAVE', NOW() + INTERVAL 2 DAY);
+
+-- Insert third weather alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (3, 'WEATHER', 'LOW', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO weather_alerts (alert_id, weather_type, forecasted_at)
+VALUES (@last_alert_id, 'COLD_SNAP', NOW() + INTERVAL 3 DAY);
+
+-- Insert fourth weather alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (4, 'WEATHER', 'HIGH', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO weather_alerts (alert_id, weather_type, forecasted_at)
+VALUES (@last_alert_id, 'HEAVY_RAINFALL', NOW() + INTERVAL 4 DAY);
+
+-- Insert fifth weather alert
+INSERT INTO alerts (user_id, alert_type, priority, created_at, read_at)
+VALUES (5, 'WEATHER', 'MEDIUM', NOW(), NULL);
+SET @last_alert_id = LAST_INSERT_ID();
+INSERT INTO weather_alerts (alert_id, weather_type, forecasted_at)
+VALUES (@last_alert_id, 'DROUGHT', NOW() + INTERVAL 5 DAY);
