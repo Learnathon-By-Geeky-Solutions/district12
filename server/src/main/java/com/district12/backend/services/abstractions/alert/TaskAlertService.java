@@ -12,5 +12,6 @@ public interface TaskAlertService {
     List<DetailedAlertResponse> getAllAlertsByTaskType(String taskType);
     List<DetailedAlertResponse> getAllAlertsByDueTime(ZonedDateTime dueTime);
     DetailedAlertResponse createNewAlert(TaskAlertRequest taskAlertRequest);
+    void deleteByAlertId(Long alertId);
 
 }

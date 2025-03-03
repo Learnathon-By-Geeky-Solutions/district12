@@ -14,5 +14,6 @@ public interface AlertService {
     List<DetailedAlertResponse> getUnreadAlertsByUserId(Long userId);
     int markAlertAsReadByUser(Long userId, Long alertId);
     int markAlertsAsReadByUser(Long userId, List<Long> alertIds);
+    boolean deleteAlertById(Long alertId);
 
 }

@@ -79,4 +79,9 @@ public class CropAlertServiceImpl implements CropAlertService {
         return addDetailsToAlertWIO(newAlertResponse, newCropAlert, userCrop);
     }
 
+    @Override
+    public void deleteByAlertId(Long alertId) {
+        cropAlertRepository.deleteById(alertId);
+    }
+
 }

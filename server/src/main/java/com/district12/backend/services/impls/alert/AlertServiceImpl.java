@@ -5,6 +5,7 @@ import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.enums.AlertType;
 import com.district12.backend.repositories.alert.AlertRepository;
+import com.district12.backend.repositories.alert.CropAlertRepository;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -93,6 +95,29 @@ public class AlertServiceImpl implements AlertService {
     @Override
     public int markAlertsAsReadByUser(Long userId, List<Long> alertIds) {
         return alertRepository.markAlertsAsRead(userId, alertIds);
+    }
+
+    @Override
+    public boolean deleteAlertById(Long alertId) {
+        if(!alertRepository.existsById(alertId)) return false;
+        Alert alert = alertRepository.findById(alertId).get();
+
+        switch (alert.getAlertType()) {
+            case CROP:
+                cropAlertService.deleteByAlertId(alertId);
+                break;
+            case TASK:
+                taskAlertService.deleteByAlertId(alertId);
+                break;
+            case WEATHER:
+                weatherAlertService.deleteByAlertId(alertId);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown alert type: " + alert.getAlertType());
+        }
+
+        alertRepository.deleteById(alertId);
+        return true;
     }
 
 }

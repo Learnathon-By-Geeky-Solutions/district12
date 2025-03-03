@@ -12,5 +12,6 @@ public interface WeatherAlertService {
     List<DetailedAlertResponse> getAllAlertsByWeatherAlertType(String taskType);
     List<DetailedAlertResponse> getAllAlertsByForecastedAt(ZonedDateTime forecastedAt);
     DetailedAlertResponse createNewAlert(WeatherAlertRequest weatherAlertRequest);
+    void deleteByAlertId(Long alertId);
 
 }

@@ -70,4 +70,9 @@ public class TaskAlertServiceImpl implements TaskAlertService {
         return addDetailsToAlertWIO(newAlertResponse, newTaskAlert);
     }
 
+    @Override
+    public void deleteByAlertId(Long alertId) {
+        taskAlertRepository.deleteById(alertId);
+    }
+
 }

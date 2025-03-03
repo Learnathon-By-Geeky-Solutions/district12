@@ -11,5 +11,6 @@ public interface CropAlertService {
     List<DetailedAlertResponse> getAllAlertsByCropAlertType(String cropAlertType);
     List<DetailedAlertResponse> getAllAlertsByCropId(Long cropId);
     DetailedAlertResponse createNewAlert(CropAlertRequest cropAlertRequest);
+    void deleteByAlertId(Long alertId);
 
 }

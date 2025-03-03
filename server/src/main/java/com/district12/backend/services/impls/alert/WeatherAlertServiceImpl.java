@@ -70,4 +70,9 @@ public class WeatherAlertServiceImpl implements WeatherAlertService {
         return addDetailsToAlertWIO(newAlertResponse, newWeatherAlert);
     }
 
+    @Override
+    public void deleteByAlertId(Long alertId) {
+        weatherAlertRepository.deleteById(alertId);
+    }
+
 }

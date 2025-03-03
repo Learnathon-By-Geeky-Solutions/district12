@@ -71,4 +71,9 @@ public class AlertControllerV1 {
                 alertsReadRequest.getAlertIds());
     }
 
+    @DeleteMapping("/delete/{alertId}")
+    public boolean deleteAlertById(@PathVariable("alertId") Long alertId) {
+        return alertService.deleteAlertById(alertId);
+    }
+
 }
