@@ -1,7 +1,9 @@
 package com.district12.backend.controllers.alert;
 
+import com.district12.backend.dtos.request.alert.CropAlertRequest;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,16 @@ public class CropAlertControllerV1 {
             @PathVariable("cropId") Long cropId) {
         List<DetailedAlertResponse> cropAlertsByCropId = cropAlertService.getAllAlertsByCropId(cropId);
         return ResponseEntity.ok(cropAlertsByCropId);
+    }
+
+    // Admin/Local Officer creates new alert
+    @PostMapping("/create")
+    @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
+            "T(com.district12.backend.enums.Role).OFFICER.value)")
+    public ResponseEntity<DetailedAlertResponse> createNewCropAlert(
+            @Valid @RequestBody CropAlertRequest cropAlertRequest) {
+        DetailedAlertResponse createdAlert = cropAlertService.createNewAlert(cropAlertRequest);
+        return ResponseEntity.ok(createdAlert);
     }
 
 }

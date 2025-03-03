@@ -41,4 +41,12 @@ public class Alert {
 
     @Column(name = "read_at", nullable = false, updatable = false)
     private ZonedDateTime readAt;
+
+    public Alert(User user, AlertType alertType, AlertPriority alertPriority) {
+        this.user = user;
+        this.alertType = alertType;
+        this.alertPriority = alertPriority;
+        this.createdAt = ZonedDateTime.now();
+        this.readAt = null;
+    }
 }
