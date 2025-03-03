@@ -25,7 +25,7 @@ public class CropAlertControllerV1 {
     @GetMapping("/type/{cropAlertType}")
     @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
             "T(com.district12.backend.enums.Role).OFFICER.value)")
-    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByType(
+    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByCropAlertType(
             @PathVariable("cropAlertType") String cropAlertType) {
         List<DetailedAlertResponse> alertsByCropAlertType = cropAlertService.getAllAlertsByCropAlertType(cropAlertType);
         return ResponseEntity.ok(alertsByCropAlertType);
