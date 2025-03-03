@@ -1,7 +1,6 @@
 package com.district12.backend.controllers.alert;
 
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.services.abstractions.alert.CropAlertService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

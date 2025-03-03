@@ -27,8 +27,8 @@ public class CropAlertControllerV1 {
             "T(com.district12.backend.enums.Role).OFFICER.value)")
     public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByCropAlertType(
             @PathVariable("cropAlertType") String cropAlertType) {
-        List<DetailedAlertResponse> alertsByCropAlertType = cropAlertService.getAllAlertsByCropAlertType(cropAlertType);
-        return ResponseEntity.ok(alertsByCropAlertType);
+        List<DetailedAlertResponse> cropAlertsByCropAlertType = cropAlertService.getAllAlertsByCropAlertType(cropAlertType);
+        return ResponseEntity.ok(cropAlertsByCropAlertType);
     }
 
     // Admin/Local Officer fetches all alerts of a certain crop
@@ -37,8 +37,8 @@ public class CropAlertControllerV1 {
             "T(com.district12.backend.enums.Role).OFFICER.value)")
     public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByCropId(
             @PathVariable("cropId") Long cropId) {
-        List<DetailedAlertResponse> alertsByCropId = cropAlertService.getAllAlertsByCropId(cropId);
-        return ResponseEntity.ok(alertsByCropId);
+        List<DetailedAlertResponse> cropAlertsByCropId = cropAlertService.getAllAlertsByCropId(cropId);
+        return ResponseEntity.ok(cropAlertsByCropId);
     }
 
 }
