@@ -9,6 +9,7 @@ import com.district12.backend.services.abstractions.alert.TaskAlertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -37,6 +38,11 @@ public class TaskAlertServiceImpl implements TaskAlertService {
     public List<DetailedAlertResponse> getAllAlertsByTaskType(String taskType) {
         TaskType type = TaskType.valueOf(taskType.toUpperCase());
         return addDetailsToAlerts(taskAlertRepository.findByTaskType(type));
+    }
+
+    @Override
+    public List<DetailedAlertResponse> getAllAlertsByDueTime(ZonedDateTime dueTime) {
+        return addDetailsToAlerts(taskAlertRepository.findByDueTime(dueTime));
     }
 
 }

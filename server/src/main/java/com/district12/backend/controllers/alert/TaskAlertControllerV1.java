@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -28,8 +29,18 @@ public class TaskAlertControllerV1 {
             "T(com.district12.backend.enums.Role).OFFICER.value)")
     public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByTaskType(
             @PathVariable("taskType") String taskType) {
-        List<DetailedAlertResponse> alertsByTaskType = taskAlertService.getAllAlertsByTaskType(taskType);
-        return ResponseEntity.ok(alertsByTaskType);
+        List<DetailedAlertResponse> taskAlertsByTaskType = taskAlertService.getAllAlertsByTaskType(taskType);
+        return ResponseEntity.ok(taskAlertsByTaskType);
+    }
+
+    // Admin/Local Officer fetches all task alerts by due time of tasks
+    @GetMapping("/due/{dueTime}")
+    @PreAuthorize("hasAnyAuthority(T(com.district12.backend.enums.Role).ADMIN.value, " +
+            "T(com.district12.backend.enums.Role).OFFICER.value)")
+    public ResponseEntity<List<DetailedAlertResponse>> getAllAlertsByDueTime(
+            @PathVariable ("dueTime") ZonedDateTime dueTime) {
+        List<DetailedAlertResponse> taskAlertsByDueTime = taskAlertService.getAllAlertsByDueTime(dueTime);
+        return ResponseEntity.ok(taskAlertsByDueTime);
     }
 
 }
