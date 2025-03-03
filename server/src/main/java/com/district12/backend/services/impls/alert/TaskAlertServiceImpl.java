@@ -1,14 +1,10 @@
 package com.district12.backend.services.impls.alert;
 
-import com.district12.backend.dtos.request.alert.CropAlertRequest;
 import com.district12.backend.dtos.request.alert.TaskAlertRequest;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.User;
-import com.district12.backend.entities.UserCrop;
 import com.district12.backend.entities.alert.Alert;
-import com.district12.backend.entities.alert.CropAlert;
 import com.district12.backend.entities.alert.TaskAlert;
-import com.district12.backend.enums.CropAlertType;
 import com.district12.backend.enums.TaskType;
 import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.TaskAlertRepository;

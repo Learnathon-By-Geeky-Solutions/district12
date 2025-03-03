@@ -2,7 +2,6 @@ package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.request.alert.CropAlertRequest;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.entities.Crop;
 import com.district12.backend.entities.User;
 import com.district12.backend.entities.UserCrop;
 import com.district12.backend.entities.alert.Alert;
