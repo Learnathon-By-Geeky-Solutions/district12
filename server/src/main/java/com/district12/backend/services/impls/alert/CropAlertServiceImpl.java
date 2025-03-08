@@ -7,11 +7,12 @@ import com.district12.backend.entities.UserCrop;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.entities.alert.CropAlert;
 import com.district12.backend.enums.CropAlertType;
-import com.district12.backend.repositories.UserCropRepository;
-import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.CropAlertRepository;
 import com.district12.backend.services.UserService;
+import com.district12.backend.services.abstractions.UserCropService;
+import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,22 @@ import java.util.List;
 public class CropAlertServiceImpl implements CropAlertService {
 
     private final CropAlertRepository cropAlertRepository;
-    private final UserCropRepository userCropRepository;
-    private final AlertRepository alertRepository;
     private final UserService userService;
+    private final UserCropService userCropService;
+    private final AlertService alertService;
+
+    @Override
+    public CropAlert getCropAlertById(Long cropAlertId) {
+        return cropAlertRepository.findById(cropAlertId).orElseThrow(
+                () -> new EntityNotFoundException("Crop Alert not found with id: " + cropAlertId)
+        );
+    }
 
     @Override
     public DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse) {
 
-        CropAlert cropAlert = cropAlertRepository.findById(detailedAlertResponse.getId()).orElse(null);
-        UserCrop userCrop = userCropRepository.findById(cropAlert.getUserCrop().getId()).orElse(null);
+        CropAlert cropAlert = this.getCropAlertById(detailedAlertResponse.getId());
+        UserCrop userCrop = userCropService.getUserCropById(cropAlert.getUserCrop().getId());
 
         detailedAlertResponse.addDetail("cropId", userCrop.getCrop().getId());
         detailedAlertResponse.addDetail("userCropId", userCrop.getId());
@@ -70,9 +78,9 @@ public class CropAlertServiceImpl implements CropAlertService {
     @Override
     public DetailedAlertResponse createNewAlert(CropAlertRequest cropAlertRequest) {
         User user = userService.getUserById(cropAlertRequest.getUserId());
-        Alert newAlert = alertRepository.save(new Alert(user, cropAlertRequest.getAlertType(), cropAlertRequest.getAlertPriority()));
+        Alert newAlert = alertService.saveAlert(new Alert(user, cropAlertRequest.getAlertType(), cropAlertRequest.getAlertPriority()));
 
-        UserCrop userCrop = userCropRepository.findById(cropAlertRequest.getUserCropId()).orElse(null);
+        UserCrop userCrop = userCropService.getUserCropById(cropAlertRequest.getUserCropId());
         CropAlert newCropAlert = cropAlertRepository.save(new CropAlert(newAlert, userCrop, cropAlertRequest.getCropAlertType()));
 
         DetailedAlertResponse newAlertResponse = new DetailedAlertResponse(newAlert.getId(), newAlert.getUser().getId(), newAlert.getAlertType(), newAlert.getAlertPriority(), newAlert.getCreatedAt(), newAlert.getReadAt());

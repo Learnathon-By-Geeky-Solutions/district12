@@ -2,7 +2,6 @@ package com.district12.backend.repositories.alert;
 
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.entities.alert.TaskAlert;
-import com.district12.backend.enums.CropAlertType;
 import com.district12.backend.enums.TaskType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,7 +28,7 @@ public interface TaskAlertRepository extends JpaRepository<TaskAlert, Long> {
         )
         FROM TaskAlert ta
         JOIN Alert a ON ta.alert.id = a.id
-        WHERE ta.dueTime = :dueTime
+        WHERE ta.dueTime <= :dueTime
     """)
     List<DetailedAlertResponse> findByDueTime(@Param("dueTime") ZonedDateTime dueTime);
 

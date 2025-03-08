@@ -20,7 +20,7 @@ public interface WeatherAlertRepository extends JpaRepository<WeatherAlert, Long
         JOIN Alert a ON wa.alert.id = a.id
         WHERE wa.weatherAlertType = :weatherAlertType
     """)
-    List<DetailedAlertResponse> findByWeatherAlertType(@Param("dueTime") WeatherAlertType weatherAlertType);
+    List<DetailedAlertResponse> findByWeatherAlertType(@Param("weatherAlertType") WeatherAlertType weatherAlertType);
 
     @Query(value = """
         SELECT new com.district12.backend.dtos.response.alert.DetailedAlertResponse(

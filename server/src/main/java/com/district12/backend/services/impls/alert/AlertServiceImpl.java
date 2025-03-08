@@ -2,19 +2,20 @@ package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
+import com.district12.backend.entities.User;
 import com.district12.backend.entities.alert.Alert;
+import com.district12.backend.enums.AlertPriority;
 import com.district12.backend.enums.AlertType;
 import com.district12.backend.repositories.alert.AlertRepository;
-import com.district12.backend.repositories.alert.CropAlertRepository;
 import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.CropAlertService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
 import com.district12.backend.services.abstractions.alert.WeatherAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,9 +44,20 @@ public class AlertServiceImpl implements AlertService {
                 .toList();
     }
 
+    @Override
+    public Alert getAlertById(Long alertId) {
+        return alertRepository.findById(alertId).orElseThrow(
+                () -> new EntityNotFoundException("Alert not found with id: " + alertId)
+        );
+    }
 
     @Override
-    public AlertResponse getAlertById(Long alertId) {
+    public Alert saveAlert(Alert alert) {
+        return alertRepository.save(alert);
+    }
+
+    @Override
+    public AlertResponse getAlertResponseById(Long alertId) {
         Alert alertById = alertRepository.findById(alertId).orElse(null);
         if (alertById == null) return null;
 
@@ -99,8 +111,7 @@ public class AlertServiceImpl implements AlertService {
 
     @Override
     public boolean deleteAlertById(Long alertId) {
-        if(!alertRepository.existsById(alertId)) return false;
-        Alert alert = alertRepository.findById(alertId).get();
+        Alert alert = this.getAlertById(alertId);
 
         switch (alert.getAlertType()) {
             case CROP:

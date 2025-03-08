@@ -6,10 +6,11 @@ import com.district12.backend.entities.User;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.entities.alert.WeatherAlert;
 import com.district12.backend.enums.WeatherAlertType;
-import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.WeatherAlertRepository;
 import com.district12.backend.services.UserService;
+import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.WeatherAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +23,18 @@ public class WeatherAlertServiceImpl implements WeatherAlertService {
 
     private final WeatherAlertRepository weatherAlertRepository;
     private final UserService userService;
-    private final AlertRepository alertRepository;
+    private final AlertService alertService;
+
+    @Override
+    public WeatherAlert getWeatherAlertById(Long weatherAlertId) {
+        return weatherAlertRepository.findById(weatherAlertId).orElseThrow(
+                () -> new EntityNotFoundException("Weather Alert not found with id: " + weatherAlertId)
+        );
+    }
 
     @Override
     public DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse) {
-        WeatherAlert weatherAlert = weatherAlertRepository.findById(detailedAlertResponse.getId()).orElse(null);
+        WeatherAlert weatherAlert = this.getWeatherAlertById(detailedAlertResponse.getId());
 
         detailedAlertResponse.addDetail("weatherType", weatherAlert.getWeatherAlertType());
         detailedAlertResponse.addDetail("forecastedAt", weatherAlert.getForecastedAt());
@@ -62,7 +70,7 @@ public class WeatherAlertServiceImpl implements WeatherAlertService {
     @Override
     public DetailedAlertResponse createNewAlert(WeatherAlertRequest weatherAlertRequest) {
         User user = userService.getUserById(weatherAlertRequest.getUserId());
-        Alert newAlert = alertRepository.save(new Alert(user, weatherAlertRequest.getAlertType(), weatherAlertRequest.getAlertPriority()));
+        Alert newAlert = alertService.saveAlert(new Alert(user, weatherAlertRequest.getAlertType(), weatherAlertRequest.getAlertPriority()));
 
         WeatherAlert newWeatherAlert = weatherAlertRepository.save(new WeatherAlert(newAlert, weatherAlertRequest.getWeatherAlertType(), weatherAlertRequest.getForecastedAt()));
 

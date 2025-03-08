@@ -6,10 +6,11 @@ import com.district12.backend.entities.User;
 import com.district12.backend.entities.alert.Alert;
 import com.district12.backend.entities.alert.TaskAlert;
 import com.district12.backend.enums.TaskType;
-import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.TaskAlertRepository;
 import com.district12.backend.services.UserService;
+import com.district12.backend.services.abstractions.alert.AlertService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +23,18 @@ public class TaskAlertServiceImpl implements TaskAlertService {
 
     private final TaskAlertRepository taskAlertRepository;
     private final UserService userService;
-    private final AlertRepository alertRepository;
+    private final AlertService alertService;
+
+    @Override
+    public TaskAlert getTaskAlertById(Long taskAlertId) {
+        return taskAlertRepository.findById(taskAlertId).orElseThrow(
+                () -> new EntityNotFoundException("Task Alert not found with id: " + taskAlertId)
+        );
+    }
 
     @Override
     public DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse) {
-        TaskAlert taskAlert = taskAlertRepository.findById(detailedAlertResponse.getId()).orElse(null);
+        TaskAlert taskAlert = this.getTaskAlertById(detailedAlertResponse.getId());
 
         detailedAlertResponse.addDetail("taskType", taskAlert.getTaskType());
         detailedAlertResponse.addDetail("dueTime", taskAlert.getDueTime());
@@ -62,7 +70,7 @@ public class TaskAlertServiceImpl implements TaskAlertService {
     @Override
     public DetailedAlertResponse createNewAlert(TaskAlertRequest taskAlertRequest) {
         User user = userService.getUserById(taskAlertRequest.getUserId());
-        Alert newAlert = alertRepository.save(new Alert(user, taskAlertRequest.getAlertType(), taskAlertRequest.getAlertPriority()));
+        Alert newAlert = alertService.saveAlert(new Alert(user, taskAlertRequest.getAlertType(), taskAlertRequest.getAlertPriority()));
 
         TaskAlert newTaskAlert = taskAlertRepository.save(new TaskAlert(newAlert, taskAlertRequest.getTaskType(), taskAlertRequest.getDueTime()));
 
