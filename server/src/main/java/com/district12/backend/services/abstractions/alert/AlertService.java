@@ -2,10 +2,7 @@ package com.district12.backend.services.abstractions.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
-import com.district12.backend.entities.User;
 import com.district12.backend.entities.alert.Alert;
-import com.district12.backend.enums.AlertPriority;
-import com.district12.backend.enums.AlertType;
 
 import java.util.List;
 
