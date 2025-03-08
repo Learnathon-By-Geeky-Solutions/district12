@@ -28,7 +28,7 @@ public interface TaskAlertRepository extends JpaRepository<TaskAlert, Long> {
         )
         FROM TaskAlert ta
         JOIN Alert a ON ta.alert.id = a.id
-        WHERE ta.dueTime = :dueTime
+        WHERE ta.dueTime <= :dueTime
     """)
     List<DetailedAlertResponse> findByDueTime(@Param("dueTime") ZonedDateTime dueTime);
 
