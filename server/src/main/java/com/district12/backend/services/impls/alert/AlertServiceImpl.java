@@ -2,7 +2,9 @@ package com.district12.backend.services.impls.alert;
 
 import com.district12.backend.dtos.response.alert.AlertResponse;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
+import com.district12.backend.entities.User;
 import com.district12.backend.entities.alert.Alert;
+import com.district12.backend.enums.AlertPriority;
 import com.district12.backend.enums.AlertType;
 import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.services.abstractions.alert.AlertService;
@@ -47,6 +49,11 @@ public class AlertServiceImpl implements AlertService {
         return alertRepository.findById(alertId).orElseThrow(
                 () -> new EntityNotFoundException("Alert not found with id: " + alertId)
         );
+    }
+
+    @Override
+    public Alert saveAlert(Alert alert) {
+        return alertRepository.save(alert);
     }
 
     @Override
