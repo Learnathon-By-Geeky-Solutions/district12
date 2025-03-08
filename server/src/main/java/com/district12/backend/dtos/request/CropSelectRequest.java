@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CropSelectRequest {
 
-    @NotEmpty(message = "Alert IDs list cannot be empty")
+    @NotEmpty(message = "Crop IDs list cannot be empty")
     private List<Long> cropIds;
 
 }

@@ -24,8 +24,8 @@ public class AlertControllerV1 {
 
     @GetMapping("/{alertId}")
     public ResponseEntity<AlertResponse> getAlertById(@PathVariable("alertId") Long alertId) {
-        AlertResponse alertById = alertService.getAlertResponseById(alertId);
-        return ResponseEntity.ok(alertById);
+        AlertResponse alertResponseById = alertService.getAlertResponseById(alertId);
+        return ResponseEntity.ok(alertResponseById);
     }
 
     @GetMapping("/details/{alertId}")
