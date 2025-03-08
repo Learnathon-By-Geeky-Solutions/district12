@@ -5,12 +5,14 @@ import com.district12.backend.enums.AlertType;
 import com.district12.backend.enums.TaskType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class TaskAlertRequest {
 
