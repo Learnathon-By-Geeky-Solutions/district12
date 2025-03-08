@@ -1,6 +1,5 @@
 package com.district12.backend.controllers.alert;
 
-import com.district12.backend.dtos.request.alert.CropAlertRequest;
 import com.district12.backend.dtos.request.alert.TaskAlertRequest;
 import com.district12.backend.dtos.response.alert.DetailedAlertResponse;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
