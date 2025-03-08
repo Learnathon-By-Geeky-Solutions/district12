@@ -10,6 +10,7 @@ import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.TaskAlertRepository;
 import com.district12.backend.services.UserService;
 import com.district12.backend.services.abstractions.alert.TaskAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,15 @@ public class TaskAlertServiceImpl implements TaskAlertService {
     private final AlertRepository alertRepository;
 
     @Override
+    public TaskAlert getTaskAlertById(Long taskAlertId) {
+        return taskAlertRepository.findById(taskAlertId).orElseThrow(
+                () -> new EntityNotFoundException("Task Alert not found with id: " + taskAlertId)
+        );
+    }
+
+    @Override
     public DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse) {
-        TaskAlert taskAlert = taskAlertRepository.findById(detailedAlertResponse.getId()).orElse(null);
+        TaskAlert taskAlert = this.getTaskAlertById(detailedAlertResponse.getId());
 
         detailedAlertResponse.addDetail("taskType", taskAlert.getTaskType());
         detailedAlertResponse.addDetail("dueTime", taskAlert.getDueTime());

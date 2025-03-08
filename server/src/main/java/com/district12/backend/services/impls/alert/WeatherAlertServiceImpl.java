@@ -10,6 +10,7 @@ import com.district12.backend.repositories.alert.AlertRepository;
 import com.district12.backend.repositories.alert.WeatherAlertRepository;
 import com.district12.backend.services.UserService;
 import com.district12.backend.services.abstractions.alert.WeatherAlertService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,15 @@ public class WeatherAlertServiceImpl implements WeatherAlertService {
     private final AlertRepository alertRepository;
 
     @Override
+    public WeatherAlert getWeatherAlertById(Long weatherAlertId) {
+        return weatherAlertRepository.findById(weatherAlertId).orElseThrow(
+                () -> new EntityNotFoundException("Weather Alert not found with id: " + weatherAlertId)
+        );
+    }
+
+    @Override
     public DetailedAlertResponse addDetailsToAlert(DetailedAlertResponse detailedAlertResponse) {
-        WeatherAlert weatherAlert = weatherAlertRepository.findById(detailedAlertResponse.getId()).orElse(null);
+        WeatherAlert weatherAlert = this.getWeatherAlertById(detailedAlertResponse.getId());
 
         detailedAlertResponse.addDetail("weatherType", weatherAlert.getWeatherAlertType());
         detailedAlertResponse.addDetail("forecastedAt", weatherAlert.getForecastedAt());
