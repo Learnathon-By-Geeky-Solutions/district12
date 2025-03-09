@@ -1,4 +1,4 @@
-## APIs For Alert Management
+# APIs For Alert Management
 
 ## Get Minimal Information of Alert by ID
 
@@ -348,6 +348,6 @@ Deletes the alert with the given ID.
 **Status Code:** `404 Not Found`
 ```json
 {
-  "error": "Alert not found."
+  "error": "error message."
 }
 ```
