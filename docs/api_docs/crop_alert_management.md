@@ -11,37 +11,44 @@
 `GET http://localhost:8080/v1/alert/crop/type/{cropAlertType}`
 
 **Parameters:**
-- `cropAlertType` (string, required): The type of crop alert to filter by. Example: `DROUGHT_STRESS`
+```json
+{
+  "cropAlertType": "DRAUGHT_STRESS"
+}
+```
 
 ### ✅ Success Response:
+
 **Status Code:** `200 OK`  
 Returns a list of all crop alerts filtered by the given type.
 
 ```json
-{
-  "status": "success",
-  "alerts": [
-    {
-      "id": 1,
-      "cropId": 10,
-      "cropAlertType": "DROUGHT_STRESS",
-      "alertPriority": "HIGH",
-      "createdAt": "2025-03-09T14:30:45.123",
-      "details": {
-        "cropName": "Rice",
-        "affectedArea": "Northern Region"
-      }
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "alertType": "CROP",
+    "alertPriority": "LOW",
+    "createdAt": "2025-03-09T14:30:45.123",
+    "readAt": "2025-03-09T14:30:45.123",
+    "details": {
+      "cropId": 1,
+      "userCropId": 2,
+      "cropName": "Rice",
+      "cropAlertType": "DROUGHT_STRESS"
     }
-  ]
-}
+  }
+]
 ```
 
 ### ❌ Error Response:
+
 **Status Code:** `404 Not Found`
+
 ```json
 {
   "status": "error",
-  "message": "No alerts found for the specified crop alert type."
+  "error": "error message"
 }
 ```
 
@@ -56,33 +63,41 @@ Returns a list of all crop alerts filtered by the given type.
 `GET http://localhost:8080/v1/alert/crop/id/{cropId}`
 
 **Parameters:**
-- `cropId` (integer, required): The crop ID to filter alerts by. Example: `10`
+```json
+{
+  "cropId": 4
+}
+```
 
 ### ✅ Success Response:
+
 **Status Code:** `200 OK`  
 Returns a list of all crop alerts associated with the specified crop ID.
 
 ```json
-{
-  "status": "success",
-  "alerts": [
-    {
-      "id": 1,
-      "cropId": 10,
-      "cropAlertType": "PEST_INFESTATION",
-      "alertPriority": "MEDIUM",
-      "createdAt": "2025-03-09T14:30:45.123",
-      "details": {
-        "cropName": "Wheat",
-        "pestType": "Locust"
-      }
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "alertType": "CROP",
+    "alertPriority": "LOW",
+    "createdAt": "2025-03-09T14:30:45.123",
+    "readAt": "2025-03-09T14:30:45.123",
+    "details": {
+      "cropId": 1,
+      "userCropId": 2,
+      "cropName": "Rice",
+      "cropAlertType": "DROUGHT_STRESS"
     }
-  ]
-}
+  }
+]
+
 ```
 
 ### ❌ Error Response:
+
 **Status Code:** `404 Not Found`
+
 ```json
 {
   "status": "error",
@@ -101,39 +116,43 @@ Returns a list of all crop alerts associated with the specified crop ID.
 `POST http://localhost:8080/v1/alert/crop/create`
 
 **Request Body:**
+
 ```json
 {
-  "cropId": 10,
-  "cropAlertType": "FLOOD_RISK",
-  "alertPriority": "VERY_HIGH",
-  "details": {
-    "affectedArea": "Southern Region"
-  }
+  "userId": 1,
+  "alertType": "CROP",
+  "alertPriority": "LOW",
+  "cropAlertType": "DROUGHT_STRESS",
+  "userCropId": 2
 }
 ```
 
 ### ✅ Success Response:
+
 **Status Code:** `201 Created`  
 Creates a new crop alert and returns its details.
 
 ```json
 {
-  "status": "success",
-  "alert": {
-    "id": 2,
-    "cropId": 10,
-    "cropAlertType": "FLOOD_RISK",
-    "alertPriority": "VERY_HIGH",
-    "createdAt": "2025-03-09T14:30:45.123",
-    "details": {
-      "affectedArea": "Southern Region"
-    }
+  "id": 1,
+  "userId": 1,
+  "alertType": "CROP",
+  "alertPriority": "LOW",
+  "createdAt": "2025-03-09T14:30:45.123",
+  "readAt": null,
+  "details": {
+    "cropId": 1,
+    "userCropId": 2,
+    "cropName": "Rice",
+    "cropAlertType": "DROUGHT_STRESS"
   }
 }
 ```
 
 ### ❌ Error Response:
+
 **Status Code:** `400 Bad Request`
+
 ```json
 {
   "status": "error",
