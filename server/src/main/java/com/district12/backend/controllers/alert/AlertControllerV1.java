@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/alert")
@@ -61,19 +62,35 @@ public class AlertControllerV1 {
     }
 
     @PutMapping("/user/mark-read/{alertId}")
-    public int markAlertReadByUser(@PathVariable("alertId") Long alertId) {
-        return alertService.markAlertAsReadByUser(SecurityUtils.getOwnerID(), alertId);
+    public ResponseEntity<Map<String, Object>> markAlertReadByUser(@PathVariable Long alertId) {
+        int updatedCount = alertService.markAlertAsReadByUser(SecurityUtils.getOwnerID(), alertId);
+
+        return ResponseEntity.ok(Map.of(
+                "success", updatedCount > 0,
+                "message", updatedCount > 0 ? "Alert marked as read successfully." : "No such alert found."
+        ));
     }
 
+
     @PostMapping("/user/mark-read")
-    public int markAlertsReadByUser(@Valid @RequestBody AlertsReadRequest alertsReadRequest) {
-        return alertService.markAlertsAsReadByUser(SecurityUtils.getOwnerID(),
+    public ResponseEntity<Map<String, Object>> markAlertsReadByUser(@Valid @RequestBody AlertsReadRequest alertsReadRequest) {
+        int updatedCount = alertService.markAlertsAsReadByUser(SecurityUtils.getOwnerID(),
                 alertsReadRequest.getAlertIds());
+
+        return ResponseEntity.ok(Map.of(
+                "success", updatedCount > 0,
+                "message", updatedCount > 0 ? "Alerts marked as read successfully." : "No such alerts found."
+        ));
     }
 
     @DeleteMapping("/delete/{alertId}")
-    public boolean deleteAlertById(@PathVariable("alertId") Long alertId) {
-        return alertService.deleteAlertById(alertId);
+    public ResponseEntity<Map<String, Object>> deleteAlertById(@PathVariable("alertId") Long alertId) {
+        boolean deleted = alertService.deleteAlertById(alertId);
+
+        return ResponseEntity.ok(Map.of(
+                "success", deleted ,
+                "message", deleted ? "Alert deleted successfully." : "Alert deletion not successful."
+        ));
     }
 
 }

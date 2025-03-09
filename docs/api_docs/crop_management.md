@@ -1,6 +1,6 @@
 ## APIs For Crop Management
 
-### Get a List of All Available Crops
+## Get a List of All Available Crops
 
 ---
 
@@ -37,7 +37,7 @@ Returns a list of available crops.
 }
 ```
 
-### Get Crop Details by ID
+## Get Crop Details by ID
 
 ---
 
@@ -74,7 +74,7 @@ Returns details of the crop with given ID
 }
 ```
 
-### Select Crops for a User
+## Select Crops for a User
 
 ---
 
@@ -118,7 +118,7 @@ Stores selected crops against user in database
 }
 ```
 
-### Get User's Selected Crops
+## Get User's Selected Crops
 
 ---
 
@@ -150,7 +150,7 @@ Fetches selected crops by user from database
 }
 ```
 
-### Deselect Crops for a User
+## Deselect Crops for a User
 
 ---
 

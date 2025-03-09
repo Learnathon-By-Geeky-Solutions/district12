@@ -1,6 +1,6 @@
 ## APIs For Alert Management
 
-### Get Alert by ID
+## Get Minimal Information of Alert by ID
 
 ---
 
@@ -24,9 +24,11 @@ Returns alert details for the given ID.
 ```json
 {
   "id": 1,
-  "type": "Security",
-  "message": "Suspicious activity detected",
-  "status": "Unread"
+  "userId": 1,
+  "alertType": "CROP",
+  "alertPriority": "LOW",
+  "createdAt": "2025-03-09T14:30:45.123",
+  "readAt": "2025-03-09T14:30:45.123+06:00[Asia/Dhaka]"
 }
 ```
 
@@ -38,7 +40,7 @@ Returns alert details for the given ID.
 }
 ```
 
-### Get Detailed Alert by ID
+## Get Detailed Alert by ID
 
 ---
 
@@ -62,11 +64,17 @@ Returns detailed information for the alert with the given ID.
 ```json
 {
   "id": 1,
-  "type": "Security",
-  "message": "Suspicious activity detected",
-  "detailedMessage": "Multiple login attempts detected from an unusual IP address.",
-  "status": "Unread",
-  "timestamp": "2025-03-09T12:00:00Z"
+  "userId": 1,
+  "alertType": "CROP",
+  "alertPriority": "LOW",
+  "createdAt": "2025-03-09T14:30:45.123",
+  "readAt": "2025-03-09T14:30:45.123",
+  "details": {
+    "cropId": 1,
+    "userCropId": 2,
+    "cropName": "Rice",
+    "cropAlertType": "DROUGHT_STRESS"
+  }
 }
 ```
 
@@ -78,7 +86,7 @@ Returns detailed information for the alert with the given ID.
 }
 ```
 
-### Get All Alerts by Type (Admin/Officer)
+## Get All Alerts by Type (Admin/Officer)
 
 ---
 
@@ -91,27 +99,27 @@ Returns detailed information for the alert with the given ID.
 **Parameters:**
 ```json
 {
-  "alertType": "Security"
+  "alertType": "TASK"
 }
 ```
 
 ### ✅ Success Response:
 **Status Code:** `200 OK`  
-Returns a list of alerts filtered by the given type.
+Returns a list of alerts filtered by the given type(CROP, TASK, WEATHER).
 
 ```json
 [
   {
     "id": 1,
-    "type": "Security",
-    "message": "Suspicious activity detected",
-    "status": "Unread"
-  },
-  {
-    "id": 2,
-    "type": "Security",
-    "message": "Unusual login attempt",
-    "status": "Read"
+    "userId": 1,
+    "alertType": "TASK",
+    "alertPriority": "MEDIUM",
+    "createdAt": "2025-03-09T14:30:45.123",
+    "readAt": "2025-03-09T14:30:45.123",
+    "details": {
+      "taskType": "SEED_PLANTING",
+      "dueTime": "2025-03-09T14:30:45.123"
+    }
   }
 ]
 ```
@@ -124,7 +132,7 @@ Returns a list of alerts filtered by the given type.
 }
 ```
 
-### Get All Alerts by User ID (Admin/Officer)
+## Get All Alerts by User ID (ADMIN/OFFICER)
 
 ---
 
@@ -137,21 +145,27 @@ Returns a list of alerts filtered by the given type.
 **Parameters:**
 ```json
 {
-  "userId": 123
+  "userId": 2
 }
 ```
 
 ### ✅ Success Response:
 **Status Code:** `200 OK`  
-Returns a list of alerts for the given user.
+Returns a list of all alerts for the given user.
 
 ```json
 [
   {
     "id": 1,
-    "type": "Security",
-    "message": "Suspicious activity detected",
-    "status": "Unread"
+    "userId": 1,
+    "alertType": "WEATHER",
+    "alertPriority": "VERY_HIGH",
+    "createdAt": "2025-03-09T14:30:45.123",
+    "readAt": "2025-03-09T14:30:45.123",
+    "details": {
+      "weatherType": "HUMIDITY_FLUCTUATION",
+      "forecastedAt": "2025-03-09T14:30:45.123"
+    }
   }
 ]
 ```
@@ -164,7 +178,7 @@ Returns a list of alerts for the given user.
 }
 ```
 
-### Get Unread Alerts by User ID
+## Get Unread Alerts by User ID
 
 ---
 
@@ -182,9 +196,15 @@ Returns all unread alerts for the authenticated user.
 [
   {
     "id": 1,
-    "type": "Security",
-    "message": "Suspicious activity detected",
-    "status": "Unread"
+    "userId": 1,
+    "alertType": "WEATHER",
+    "alertPriority": "VERY_HIGH",
+    "createdAt": "2025-03-09T14:30:45.123",
+    "readAt": "2025-03-09T14:30:45.123",
+    "details": {
+      "weatherType": "HUMIDITY_FLUCTUATION",
+      "forecastedAt": "2025-03-09T14:30:45.123"
+    }
   }
 ]
 ```
@@ -197,7 +217,7 @@ Returns all unread alerts for the authenticated user.
 }
 ```
 
-### Mark Alert as Read by User
+## Mark Alert as Read by User
 
 ---
 
@@ -210,7 +230,7 @@ Returns all unread alerts for the authenticated user.
 **Parameters:**
 ```json
 {
-  "alertId": 1
+  "alertId": 3
 }
 ```
 
@@ -220,7 +240,17 @@ Marks the alert as read.
 
 ```json
 {
+  "success" : true,
   "message": "Alert marked as read successfully."
+}
+```
+
+### ❌ Invalid Request:
+**Status Code:** `404 Not Found`
+```json
+{
+  "success" : false,
+  "message": "No such alert found"
 }
 ```
 
@@ -232,7 +262,7 @@ Marks the alert as read.
 }
 ```
 
-### Mark Multiple Alerts as Read by User
+## Mark Multiple Alerts as Read by User
 
 ---
 
@@ -255,7 +285,17 @@ Marks the specified alerts as read.
 
 ```json
 {
+  "success" : true,
   "message": "Alerts marked as read successfully."
+}
+```
+
+### ❌ Invalid Request:
+**Status Code:** `404 Not Found`
+```json
+{
+  "success" : false,
+  "message": "No such alerts found"
 }
 ```
 
@@ -263,11 +303,11 @@ Marks the specified alerts as read.
 **Status Code:** `400 Bad Request`
 ```json
 {
-  "error": "Invalid alert IDs provided."
+  "error": "error message."
 }
 ```
 
-### Delete Alert by ID
+## Delete Alert by ID
 
 ---
 
@@ -290,7 +330,17 @@ Deletes the alert with the given ID.
 
 ```json
 {
-  "message": "Alert deleted successfully."
+  "success" : true,
+  "message": "Alert deleted successfully.."
+}
+```
+
+### ❌ Invalid Request:
+**Status Code:** `404 Not Found`
+```json
+{
+  "success" : false,
+  "message": "Alert deletion not successful"
 }
 ```
 
