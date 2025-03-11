@@ -188,3 +188,72 @@ Removes selected crops against user from database
   "error": "Invalid crop IDs provided."
 }
 ```
+
+## Authorized Admin/Officer Add a New Crop to Database
+
+---
+
+**Endpoint:**  
+`POST https://server.district12.xyz/v1/crops/add`
+
+**Local Dev Endpoint:**  
+`POST http://localhost:8080/v1/crops/add`
+
+**Request Body:**
+```json
+{
+  "name": "Asparagus",
+  "description": "From the story - The Luncheon"
+}
+```
+
+### ✅ Success Response:
+**Status Code:** `201 OK`  
+Added new crop to database
+
+```json
+[
+  {
+    "id": 12,
+    "name": "Asparagus",
+    "description": "From the story - The Luncheon"
+  }
+]
+```
+
+### ❌ Error Response:
+**Status Code:** `400 Bad Request`
+```json
+{
+  "error": "error message"
+}
+```
+
+## Authorized Admin/Officer Deletes a Crop from Database
+
+---
+
+**Endpoint:**  
+`DELETE https://server.district12.xyz/v1/crops/delete`
+
+**Local Dev Endpoint:**  
+`DELETE http://localhost:8080/v1/crops/delete`
+
+**Parameters:**
+```json
+{
+  "cropId": 8
+}
+```
+
+### ✅ Success Response:
+**Status Code:** `200 OK`  
+Deleted crop from database
+
+### ❌ Error Response:
+**Status Code:** `404 Not found`
+```json
+{
+  "error": "error message"
+}
+```
