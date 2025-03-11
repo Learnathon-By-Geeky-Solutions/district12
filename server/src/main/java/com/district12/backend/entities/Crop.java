@@ -24,4 +24,9 @@ public class Crop {
     @Column(nullable = false, length = 1200)
     private String description;
 
+    public Crop(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 }

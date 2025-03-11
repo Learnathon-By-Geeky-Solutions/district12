@@ -78,4 +78,20 @@ public class CropServiceImpl implements CropService {
         return cropResponses;
     }
 
+    @Override
+    public CropResponse addNewCrop(String name, String description) {
+        Crop newCrop = cropRepository.save(new Crop(name, description));
+        return new CropResponse(newCrop.getId(), newCrop.getName(), newCrop.getDescription());
+    }
+
+    @Override
+    public boolean deleteCrop(Long cropId) {
+        if (cropRepository.existsById(cropId)) {
+            cropRepository.deleteById(cropId);
+            return true;
+        }
+        return false;
+    }
+
+
 }
